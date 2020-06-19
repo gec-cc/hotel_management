@@ -14,12 +14,12 @@ struct node{
    struct node *link;
 };
 struct node *start=NULL;
-// struct node *checkin(struct node *start);   
+struct node *checkin(struct node *start);   
 struct node *checkout(struct node *start );
-// struct node *edit_info(struct node *start,int guestid);
-// struct node *checkguestlist(struct node *start);
-// struct node *searchlist(struct node *start,int guestid);
-// struct node *check_if_room_available(struct node *start,int room_num);
+struct node *edit_info(struct node *start,int guestid);
+struct node *checkguestlist(struct node *start);
+struct node *searchlist(struct node *start,int guestid);
+struct node *check_if_room_available(struct node *start,int room_num);
 int main(){
     int choice,guestid,room_num;
     
@@ -34,28 +34,28 @@ int main(){
 		switch(choice)
 		{
 			case 1:
-				// start=checkin(start);
+				start=checkin(start);
 				break;
 			case 2:
 				start=checkout(start);
 				break;
 			case 3:
-				// printf("\nENTER GUEST ID\n");
-				// scanf("%d",&guestid);
-				// start=edit_info(start,guestid);
+				printf("\nENTER GUEST ID\n");
+				scanf("%d",&guestid);
+				start=edit_info(start,guestid);
 				break;
 			case 4:
-				// start=checkguestlist(start);
+				start=checkguestlist(start);
 				break;
 			case 5:
-				// printf("\nENTER GUEST ID\n");
-				// scanf("%d",&guestid);
-				// start=searchlist(start,guestid);
+				printf("\nENTER GUEST ID\n");
+				scanf("%d",&guestid);
+				start=searchlist(start,guestid);
 				break;
 			case 6:
-				// printf("\nENTER ROOM NUMBER\n");
-				// scanf("%d",&room_num);
-				// start=check_if_room_available(start,room_num);
+				printf("\nENTER ROOM NUMBER\n");
+				scanf("%d",&room_num);
+				start=check_if_room_available(start,room_num);
 				break;
 			case 0:
 				exit(1);
@@ -122,7 +122,7 @@ struct node *checkout(struct node *start ){
 			p = temp->link;
 			temp->link = temp->link->link;
 			free(p);
-			printf("Hi %s !\n Thank you so much for choosing to stay at our place while in  %s. We hope you had a great time here and enjoyed your stay.", p->name, p->addr);
+			printf("\n Hi %s !\n Thank you so much for choosing to stay at our place while in  %s. We hope you had a great time here and enjoyed your stay.", p->name, p->addr);
 			return start;
 		}
 		temp = temp->link;

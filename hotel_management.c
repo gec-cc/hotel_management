@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<string.h>
 #define MAX 100 //Capacity of hotel
 
 int rooms_occ=0;//To count the number of rooms occupied 
@@ -65,6 +66,35 @@ int main(){
 	
 return 0;
 }
-						
+
+struct node *edit_info(struct node *start,int guestid)
+{
+	if(start==NULL)
+		return start;
+	struct node* temp;
+	char alias[40];
+	int a;
+	temp = start;
+	while(temp!=NULL){
+		if(temp->guest_id == guestid){
+			printf("Enter the New name: ");
+			scanf("%s",alias);
+			strcpy(temp->name,alias);
+			printf("Enter the new address");
+			scanf("%[^\n]%*c", alias);
+			strcpy(temp->addr,alias);
+			printf("Enter the new age: ");
+			scanf("%d",&a);
+			temp->age = a;
+			printf("Enter the new room number");
+			scanf("%d",&a);
+			temp->room_number = a;
+			return start;
+		}
+		temp=temp->link;
+	}
+	printf("guest id not found in our records");
+	return start;
+}						
 		
 	

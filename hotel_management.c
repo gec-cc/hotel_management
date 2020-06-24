@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<string.h>
 #define MAX 100 //Capacity of hotel
 
 int rooms_occ=0;//To count the number of rooms occupied 
@@ -65,6 +66,69 @@ int main(){
 	
 return 0;
 }
-						
+
+struct node *edit_info(struct node *start,int guestid)
+{
+	if(start==NULL)
+		return start;
+	struct node* temp;
+	char alias[40];
+	int a;
+	temp = start;
+	while(temp!=NULL){
+		if(temp->guest_id == guestid){
+			printf("\n Enter the New name: ");
+			scanf("%s",alias);
+			strcpy(temp->name,alias);
+			printf("\n Enter the new address: ");
+			scanf("%[^\n]%*c", alias);
+			strcpy(temp->addr,alias);
+			printf("\n Enter the new age: ");
+			scanf("%d",&a);
+			temp->age = a;
+			printf("\n Enter the new room number: ");
+			scanf("%d",&a);
+			temp->room_number = a;
+			return start;
+		}
+		temp=temp->link;
+	}
+	printf("\n Guest id didn't match our records");
+	return start;	
+}
+
+struct node *checkout(struct node *start ){
+	int guest;
+	printf("\nEnter the guest id: ");
+	scanf("%d",&guest);
+	struct node *temp;
+	temp = start;
+	struct node * p;
+	p = (struct node *)malloc(sizeof(struct node));
+	if(start == NULL){
+		printf("\n You need to checkin first in order to checkout! ");
+		return start;
+	}
+
+	if(temp->guest_id==guest)
+	{
+		temp==NULL;
+		printf("\nHi %s !\n Thank you so much for choosing to stay at our place while in  %s. We hope you had a great time here and enjoyed your stay.", temp->name, temp->addr);
+		return start;
+	}
+	while (temp!=NULL)
+	{
+		if(temp->link->guest_id == guest){
+			p = temp->link;
+			temp->link = temp->link->link;
+			free(p);
+			printf("\n Hi %s !\n Thank you so much for choosing to stay at our place while in  %s. We hope you had a great time here and enjoyed your stay.", p->name, p->addr);
+			return start;
+		}
+		temp = temp->link;
+	}
+	printf("\nGuest id didn't match our records\n");
+	return start;
+}
 		
 	

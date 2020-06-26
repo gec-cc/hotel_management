@@ -129,6 +129,35 @@ struct node *checkout(struct node *start ){
 	}
 	printf("\nGuest id didn't match our records\n");
 	return start;
+}	
+struct node *checkin(struct node *start)
+{
+	int gId, age, rmNo;
+	char gname[20], add[30];
+	struct node *temp;
+	temp = (struct node *)malloc(sizeof(struct node));
+	printf("Enter Guest ID: ");
+	scanf("%d", &temp->guest_id);
+	printf("Enter Guest Name: ");
+	scanf("%s", temp->name);
+	printf("Enter Guest Address: ");
+	scanf("%s", temp->addr);
+	printf("Enter Guest age: ");
+	scanf("%d", &temp->age);
+	printf("Enter Room No: ");
+	scanf("%d", &temp->room_number);
+
+	temp->link = NULL;
+
+	if (start == NULL)
+		return temp;
+
+	else
+	{
+		struct node *p;
+		for (p = start; p->link != NULL; p = p->link)
+			;
+		p->link = temp;
+		return start;
+	}
 }
-		
-	

@@ -129,12 +129,39 @@ struct node *checkout(struct node *start ){
 	}
 	printf("\nGuest id didn't match our records\n");
 	return start;
-}	
+}
+
+struct node *searchlist(struct node *start, int guestid){
+	if (start == NULL){
+		printf("No data found\n");
+		return start;
+	}
+
+	struct node *p = start;
+	for (; p != NULL; p = p->link)	{
+		if (p->guest_id == guestid){
+			printf("Guest Name: %s\n", p->name);
+			printf("Guest Address: %s\n", p->addr);
+			printf("Guest age: %d\n", p->age);
+			printf("Room No: %d\n", p->room_number);
+			return start;
+		}
+	}
+	printf("No data found\n");
+	return start;
+}
+
 struct node *checkin(struct node *start)
 {
 	int gId, age, rmNo;
 	char gname[20], add[30];
 	struct node *temp;
+
+	if ((MAX - rooms_occ) == 0){
+		printf("Sorry no rooms available");
+		return start;
+	}
+
 	temp = (struct node *)malloc(sizeof(struct node));
 	printf("Enter Guest ID: ");
 	scanf("%d", &temp->guest_id);
@@ -148,12 +175,11 @@ struct node *checkin(struct node *start)
 	scanf("%d", &temp->room_number);
 
 	temp->link = NULL;
-
+	rooms_occ++; //assuming every guest occupies 1 room each
 	if (start == NULL)
 		return temp;
 
-	else
-	{
+	else {
 		struct node *p;
 		for (p = start; p->link != NULL; p = p->link)
 			;
